@@ -1,1 +1,79 @@
-test
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>postwindow</title>
+    <script type="text/javascript">
+      function openUrl(url, title) {
+        title = title || "auth";
+        var w = 500,
+          h = 600;
+        var screenLeft =
+          window.screenLeft !== undefined ? window.screenLeft : screen.left;
+        var screenTop =
+          window.screenTop !== undefined ? window.screenTop : screen.top;
+
+        var width = window.innerWidth
+          ? window.innerWidth
+          : document.documentElement.clientWidth
+          ? document.documentElement.clientWidth
+          : screen.width;
+        var height = window.innerHeight
+          ? window.innerHeight
+          : document.documentElement.clientHeight
+          ? document.documentElement.clientHeight
+          : screen.height;
+
+        var left = width / 2 - w / 2 + screenLeft;
+        var top = height / 2 - h / 2 + screenTop;
+        var newWindow = window.open(
+          url,
+          title,
+          "toolbar=no,location=no,status=yes,resizable=yes,scrollbars=yes, width=" +
+            w +
+            ", height=" +
+            h +
+            ", top=" +
+            top +
+            ", left=" +
+            left
+        );
+
+        if (window.focus) {
+          newWindow.focus();
+        }
+      }
+      var arr = []
+      window.addEventListener("message", function (event) {
+        if (
+          typeof event.data === "string"
+        ) {
+          arr.push(event.data)
+          console.log(arr)
+          console.log('event', event)
+        }
+      });
+    </script>
+    <style>
+      body {
+        font-family: arial;
+      }
+      #tokens {
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+      .button {
+        display: inline-block;
+        margin: 10px;
+        cursor: pointer;
+        background: #eee;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="openUrl('https://dexif.com/')">Click</button>
+  </body>
+</html>
